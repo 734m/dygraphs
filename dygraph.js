@@ -1893,23 +1893,7 @@ Dygraph.prototype.rollingAverage = function(originalData, rollPeriod) {
  */
 Dygraph.dateParser = function(dateStr, self) {
   var dateStrSlashed;
-  var d;
-  if (dateStr.search("-") != -1) {  // e.g. '2009-7-12' or '2009-07-12'
-    dateStrSlashed = dateStr.replace("-", "/", "g");
-    while (dateStrSlashed.search("-") != -1) {
-      dateStrSlashed = dateStrSlashed.replace("-", "/");
-    }
-    d = Date.parse(dateStrSlashed);
-  } else if (dateStr.length == 8) {  // e.g. '20090712'
-    // TODO(danvk): remove support for this format. It's confusing.
-    dateStrSlashed = dateStr.substr(0,4) + "/" + dateStr.substr(4,2)
-                       + "/" + dateStr.substr(6,2);
-    d = Date.parse(dateStrSlashed);
-  } else {
-    // Any format that Date.parse will accept, e.g. "2009/07/12" or
-    // "2009/07/12 12:34:56"
-    d = Date.parse(dateStr);
-  }
+  var d = Date.parse(dateStr);
 
   if (!d || isNaN(d)) {
     self.error("Couldn't parse " + dateStr + " as a date");
