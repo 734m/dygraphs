@@ -1908,27 +1908,10 @@ Dygraph.dateParser = function(dateStr, self) {
  * @private
  */
 Dygraph.prototype.detectTypeFromString_ = function(str) {
-  var isDate = false;
-  if (str.indexOf('-') >= 0 ||
-      str.indexOf('/') >= 0 ||
-      isNaN(parseFloat(str))) {
-    isDate = true;
-  } else if (str.length == 8 && str > '19700101' && str < '20371231') {
-    // TODO(danvk): remove support for this format.
-    isDate = true;
-  }
-
-  if (isDate) {
-    this.attrs_.xValueFormatter = Dygraph.dateString_;
-    this.attrs_.xValueParser = Dygraph.dateParser;
-    this.attrs_.xTicker = Dygraph.dateTicker;
-    this.attrs_.xAxisLabelFormatter = Dygraph.dateAxisFormatter;
-  } else {
-    this.attrs_.xValueFormatter = function(x) { return x; };
-    this.attrs_.xValueParser = function(x) { return parseFloat(x); };
-    this.attrs_.xTicker = Dygraph.numericTicks;
-    this.attrs_.xAxisLabelFormatter = this.attrs_.xValueFormatter;
-  }
+  this.attrs_.xValueFormatter = Dygraph.dateString_;
+  this.attrs_.xValueParser = function(x) { return Number(x); };
+  this.attrs_.xTicker = Dygraph.dateTicker;
+  this.attrs_.xAxisLabelFormatter = Dygraph.dateAxisFormatter;
 };
 
 /**
