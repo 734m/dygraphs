@@ -1746,6 +1746,8 @@ Dygraph.prototype.drawGraph_ = function(data) {
   if (this.attr_("drawCallback") !== null) {
     this.attr_("drawCallback")(this, is_initial_draw);
   }
+
+  return datasets;
 };
 
 /**
