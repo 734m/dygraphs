@@ -1743,11 +1743,33 @@ Dygraph.prototype.drawGraph_ = function(data) {
   this.canvas_.getContext('2d').clearRect(0, 0, this.canvas_.width,
                                          this.canvas_.height);
 
+  this.calculateStats_(datasets);
+
   if (this.attr_("drawCallback") !== null) {
     this.attr_("drawCallback")(this, is_initial_draw);
   }
+};
 
-  return datasets;
+Dygraph.prototype.calculateStats_ = function(datasets) {
+  var st, s, i, j, v, min, max, total, count, first, last;
+  this.stats_ = [];
+  for (i = datasets.length - 1; i > 0; --i) {
+    if (s = datasets[i]) { // deliberate
+      this.stats_[i-1] = st = { total: 0, count: 0 };
+      for (j = s.length - 1; j >= 0; --j) {
+        v = s[j][1];
+        if ( v !== null && v !== undefined) {
+          st.first = v;
+          st.total += v;
+          st.count += 1;
+          if (!('last' in st)) st.last = v;
+          if (!('min' in st) || v < st.min) st.min = v;
+          if (!('max' in st) || v > st.max) st.max = v;
+        }
+      }
+      st.avg = st.total / st.count;
+    }
+  }
 };
 
 /**
