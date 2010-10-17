@@ -446,9 +446,11 @@ Dygraph.prototype.createInterface_ = function() {
   Dygraph.clipCanvas_(this.canvas_, this.clippingArea_);
 
   var dygraph = this;
+  /*
   Dygraph.addEvent(this.mouseEventElement_, 'mousemove', function(e) {
     dygraph.mouseMove_(e);
   });
+  */
   Dygraph.addEvent(this.mouseEventElement_, 'mouseout', function(e) {
     dygraph.mouseOut_(e);
   });
