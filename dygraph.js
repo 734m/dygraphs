@@ -1999,31 +1999,9 @@ Dygraph.prototype.parseCSV_ = function(data) {
     }
     fields[0] = xParser(inFields[0], this);
 
-    // If fractions are expected, parse the numbers as "A/B"
-    if (this.fractions_) {
-      for (var j = 1; j < inFields.length; j++) {
-        // TODO(danvk): figure out an appropriate way to flag parse errors.
-        var vals = inFields[j].split("/");
-        fields[j] = [parseFloatOrNull(vals[0]), parseFloatOrNull(vals[1])];
-      }
-    } else if (this.attr_("errorBars")) {
-      // If there are error bars, values are (value, stddev) pairs
-      for (var j = 1; j < inFields.length; j += 2)
-        fields[(j + 1) / 2] = [parseFloatOrNull(inFields[j]),
-                               parseFloatOrNull(inFields[j + 1])];
-    } else if (this.attr_("customBars")) {
-      // Bars are a low;center;high tuple
-      for (var j = 1; j < inFields.length; j++) {
-        var vals = inFields[j].split(";");
-        fields[j] = [ parseFloatOrNull(vals[0]),
-                      parseFloatOrNull(vals[1]),
-                      parseFloatOrNull(vals[2]) ];
-      }
-    } else {
-      // Values are just numbers
-      for (var j = 1; j < inFields.length; j++) {
-        fields[j] = parseFloatOrNull(inFields[j]);
-      }
+    // Values are just numbers
+    for (var j = 1; j < inFields.length; j++) {
+      fields[j] = parseFloatOrNull(inFields[j]);
     }
     if (ret.length > 0 && fields[0] < ret[ret.length - 1][0]) {
       outOfOrder = true;
