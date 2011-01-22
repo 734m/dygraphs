@@ -183,14 +183,15 @@ Dygraph.prototype.__init__ = function(div, file, attrs) {
 
   // If the div isn't already sized then inherit from our attrs or
   // give it a default size.
-  if (div.style.width == '') {
+  var $div = $(div);
+  if (!$div.width()) {
     div.style.width = attrs.width || Dygraph.DEFAULT_WIDTH + "px";
   }
-  if (div.style.height == '') {
+  if (!$div.height()) {
     div.style.height = attrs.height || Dygraph.DEFAULT_HEIGHT + "px";
   }
-  this.width_ = parseInt(div.style.width, 10);
-  this.height_ = parseInt(div.style.height, 10);
+  this.width_ = parseInt($div.width(), 10);
+  this.height_ = parseInt($div.height(), 10);
   // The div might have been specified as percent of the current window size,
   // convert that to an appropriate number of pixels.
   if (div.style.width.indexOf("%") == div.style.width.length - 1) {
