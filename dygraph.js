@@ -2007,6 +2007,7 @@ Dygraph.prototype.parseCSV_ = function(data) {
       outOfOrder = true;
     }
     ret.push(fields);
+    fields.t_ = fields.pop();
 
     if (fields.length != expectedCols) {
       this.error("Number of columns in line " + i + " (" + fields.length +
