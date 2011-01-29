@@ -956,8 +956,9 @@ Dygraph.prototype.doZoom_ = function(lowX, highX) {
  * @private
  */
 Dygraph.prototype.mouseMove_ = function(event) {
-  var canvasx = Dygraph.pageX(event) - Dygraph.findPosX(this.mouseEventElement_);
   var points = this.layout_.points;
+  if (!points) return;
+  var canvasx = Dygraph.pageX(event) - Dygraph.findPosX(this.mouseEventElement_);
 
   var lastx = -1;
   var lasty = -1;
