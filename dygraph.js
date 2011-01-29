@@ -1709,8 +1709,9 @@ Dygraph.prototype.drawGraph_ = function(data) {
     this.addYTicks_(this.valueRange_[0], this.valueRange_[1]);
     this.displayedYRange_ = this.valueRange_;
   } else {
+    var nearZero = this.attr_("nearZero");
     // This affects the calculation of span, below.
-    if (this.attr_("includeZero") && minY > 0) {
+    if ((this.attr_("includeZero") && minY > 0) || (nearZero && minY < nearZero)) {
       minY = 0;
     }
 
